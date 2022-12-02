@@ -14,11 +14,15 @@ const number = function(...operation) {
   return result; 
 }
 
+function parse(str) {
+  return Function(`'use strict'; return (${str})`)()
+}
+
 const zero = function (...operation) {
   const value = "0";
   let result = null;
     if(operation.length) {
-      result = Function(`'use strict'; return ($value + ${operation})`)();
+      result = parse(value + operation);
     }
     else {
       result = value;
@@ -30,7 +34,9 @@ const one = function (...operation) {
   const value = "1";
   let result = null;
     if(operation.length) {
-      result = Function("'use strict'; return (value + operation)")();
+      // result = value + operation;
+      // result = Function("'use strict'; return value + operation;")();
+      result = parse(value + operation);
     }
     else {
       result = value;
@@ -42,7 +48,7 @@ const two = function (...operation) {
   const value = "2";
   let result = null;
     if(operation.length) {
-      result = Function("'use strict'; return (`${value} ${operation}`)")();
+      result = parse(value + operation);
     }
     else {
       result = value;
@@ -60,7 +66,7 @@ const two = function (...operation) {
 
 const plus = function(number) {
   const operator = "+";
-  return `${operator} ${number}`;
+  return `${operator}${number}`;
 }
 // function minus() {}
 // function times() {}
