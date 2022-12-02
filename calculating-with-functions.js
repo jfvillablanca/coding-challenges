@@ -1,6 +1,6 @@
-const operation = function(number) {
-  const operator = "+";
-  return operator + number
+const operation = function(operationValue) {
+  // return `${operator}${number}`;
+  return Function('number', `'use strict'; return "${operationValue}" + number`)
 }
 const number = function(...operation) {
   const value = "0";
