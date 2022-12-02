@@ -1,17 +1,9 @@
 const operation = function(operationValue) {
-  // return `${operator}${number}`;
   return Function('number', `'use strict'; return "${operationValue}" + number`)
 }
-const number = function(...operation) {
-  const value = "0";
-  let result = null;
-    if(operation) {
-      result = Function(`'use strict'; return ($value + ${operation})`)();
-    }
-    else {
-      result = value;
-    }
-  return result; 
+
+const number = function(numberValue) {
+  return Function('...operation', `'use strict'; let result; if(operation.length) { result = parse(value + operation); } else { result = value; } return result; `)
 }
 
 function parse(str) {
@@ -64,10 +56,7 @@ const two = function (...operation) {
 // function eight() {}
 // function nine() {}
 
-const plus = function(number) {
-  const operator = "+";
-  return `${operator}${number}`;
-}
-// function minus() {}
-// function times() {}
-// function dividedBy() {}
+const plus = operation("+");
+const minus = operation("-");
+const times = operation("*");
+const dividedBy = operation("/");
