@@ -3,11 +3,15 @@ const operation = function(operationValue) {
 }
 
 const number = function(numberValue) {
-  return Function('...operation', `let result; if(operation.length) { result = parse("${numberValue}" + operation); } else { result = "${numberValue}"; } return result; `)
-}
-
-function parse(str) {
-  return Function(`'use strict'; return (${str})`)()
+  return Function('...operation', `
+      let result; 
+      if(arguments.length !== 0) { 
+        // console.log(typeof (${numberValue} + operation));
+        result = Math.floor(eval(${numberValue} + operation));
+      } else { 
+        result = "${numberValue}"; 
+      } 
+      return result;`);
 }
 
 const zero = number("0");
