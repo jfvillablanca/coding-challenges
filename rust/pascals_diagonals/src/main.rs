@@ -40,6 +40,18 @@ fn factorial (x: u8, stop: u8) -> u64 {
     }
 }
 
+fn remove_zero_trail(mut result: u64) -> (u8,u64) {
+    dbg!(result);
+    let mut n_zero: u8 = 0;
+    loop {
+        if result % 10 != 0 {
+            break (n_zero, result)
+        }
+        n_zero += 1;
+        result /= 10;
+    }
+}
+
 fn binomial_coefficient(n: u8, r: u8) -> u64 {
     let mut binomial_coeff_result: u64 = 1;
     let max_denominator = std::cmp::max(r, n-r);
