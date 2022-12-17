@@ -16,10 +16,15 @@ fn binomial_coefficient(n: u8, r: u8) -> u64 {
     let min_denominator = std::cmp::min(r, n-r);
 
     let mut counter = n;
+    let mut zero_count = 0;
+    let mut temp_zero_container;
     binomial_coeff_result = loop {
         if counter <= max_denominator {
             break binomial_coeff_result;
         }
+        (temp_zero_container, binomial_coeff_result) = remove_zero_trail(binomial_coeff_result);
+        zero_count += temp_zero_container;
+
         binomial_coeff_result *= counter as u64;
         counter -= 1;
     };
@@ -29,10 +34,14 @@ fn binomial_coefficient(n: u8, r: u8) -> u64 {
         if counter <= 1 {
             break binomial_coeff_result;
         }
+        if zero_count > 0 {
+            binomial_coeff_result *= 10;
+            zero_count -= 1;
+        }
         binomial_coeff_result /= counter as u64;
         counter -= 1;
     };
-    binomial_coeff_result
+    binomial_coeff_result * 10_u64.pow(zero_count as u32)
 }
 
 fn generate_diagonal (base: u8, l: usize) -> Vec<u64> {
