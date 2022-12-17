@@ -11,6 +11,9 @@ fn remove_zero_trail(mut result: u64) -> (u8,u64) {
 }
 
 fn binomial_coefficient(n: u8, r: u8) -> u64 {
+    // TODO:
+    // We are still experiencing multiplication overflows
+    // Shift to Karatsuba algorithm, (possibly ditch the trailing zeros method)
     let mut binomial_coeff_result: u64 = 1;
     let max_denominator = std::cmp::max(r, n-r);
     let min_denominator = std::cmp::min(r, n-r);
