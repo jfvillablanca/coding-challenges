@@ -94,6 +94,40 @@ fn generate_diagonal (base: u8, l: usize) -> Vec<u64> {
 }
 
 fn main() {
-    let test = generate_diagonal(100, 5);
-    println!("test {:?}", test);
+    println!("{}",binomial_coefficient(58, 46));
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    // #[test]
+    // fn test_small_int() {
+    //     // assert_eq!(binomial_coefficient(5, 2), 10);
+    //     assert_eq!(binomial_coefficient(10, 2), 45);
+    // }
+
+    #[test]
+    fn test_mid_int() {
+        assert_eq!(binomial_coefficient(50, 10), 10_272_278_170);
+        assert_eq!(binomial_coefficient(200, 7), 2_283_896_214_600);
+    }
+    //
+    // #[test]
+    // fn test_big_int() {
+    //     assert_eq!(binomial_coefficient(83, 69), 2_644_778_698_775_100);
+    //     assert_eq!(binomial_coefficient(55, 25), 3_085_851_035_479_212);
+    // }
+
+    // #[test]
+    // fn test_karatsuba() {
+    //     assert_eq!(multiply_karatsuba(8, 9), 72);
+    //     assert_eq!(multiply_karatsuba(83, 69), 5_727);
+    //     assert_eq!(multiply_karatsuba(12_345_678, 99), 1_222_222_122);
+    // }
+
+    // #[test]
+    // fn test_count_digits() {
+    //     assert_eq!(count_digits(2_644_778_698_775_100_000),(9, 10));
+    // }
 }
