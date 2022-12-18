@@ -84,6 +84,7 @@ fn binomial_coefficient(n: u8, r: u8) -> u64 {
     binomial_coeff_result * 10_u64.pow(zero_count as u32)
 }
 
+#[allow(dead_code)]
 fn generate_diagonal (base: u8, l: usize) -> Vec<u64> {
     let mut diagonal: Vec<u64> = Vec::new();
     for i in 0 .. l {
