@@ -55,33 +55,42 @@ fn binomial_coefficient(n: u8, r: u8) -> u64 {
     let max_denominator = std::cmp::max(r, n-r);
     let min_denominator = std::cmp::min(r, n-r);
 
-    let mut counter = n;
-    let mut zero_count = 0;
-    let mut temp_zero_container;
-    binomial_coeff_result = loop {
-        if counter <= max_denominator {
-            break binomial_coeff_result;
-        }
-        (temp_zero_container, binomial_coeff_result) = remove_zero_trail(binomial_coeff_result);
-        zero_count += temp_zero_container;
+    let mut max_denominator_factor = n;
+    let mut min_denominator_factor = min_denominator;
 
-        binomial_coeff_result *= counter as u64;
-        counter -= 1;
-    };
+    let mut result_string = binomial_coeff_result.to_string();
+    loop {
+        dbg!(result_string.clone());
+        if max_denominator_factor <= max_denominator {
+            break;
+        }
 
-    let mut counter = min_denominator;
-    binomial_coeff_result = loop {
-        if counter <= 1 {
-            break binomial_coeff_result;
-        }
-        if zero_count > 0 {
-            binomial_coeff_result *= 10;
-            zero_count -= 1;
-        }
-        binomial_coeff_result /= counter as u64;
-        counter -= 1;
+        let half_len = result_string.len() / 2;
+        let top_half = if half_len == 0 { "0" } else { &result_string[..half_len] };
+        let bottom_half = &result_string[half_len..].to_string();
+
+        // binomial_coeff_result *= max_denominator_factor as u64;
+        let top_half = &(top_half.parse::<u64>().unwrap() * max_denominator_factor as u64).to_string();
+        let bottom_half = &(bottom_half.parse::<u64>().unwrap() * max_denominator_factor as u64).to_string();
+
+        dbg!(top_half, bottom_half, max_denominator);
+        println!("---");
+
+        result_string = "".to_string();
+        result_string.push_str(top_half);
+        result_string.push_str(bottom_half);
+        max_denominator_factor -= 1;
     };
-    binomial_coeff_result * 10_u64.pow(zero_count as u32)
+    println!("bin_coeff_string {:?}", result_string);
+
+    // For the remaining factors unreduced in the previous loop
+    loop {
+        if min_denominator_factor <= 1 {
+            return binomial_coeff_result;
+        }
+        binomial_coeff_result /= min_denominator_factor as u64;
+        min_denominator_factor -= 1;
+    };
 }
 
 #[allow(dead_code)]
