@@ -1,3 +1,42 @@
+#[allow(dead_code)]
+fn count_digits(mut num: u64) -> (u8, u8) {
+    let mut n_digits = 0;
+    loop {
+        if num <= 0 {
+            let small_split = n_digits / 2;
+            let big_split = n_digits - small_split;
+            break (small_split, big_split);
+        }
+        num /= 10;
+        n_digits += 1;
+    }
+}
+
+#[allow(dead_code)]
+fn multiply_karatsuba(x: u64, y: u64) -> u64 {
+    // x = x_1 * 10.pow(m) + x_0
+    // y = y_1 * 10.pow(m) + y_0
+    // z_2 = x_1 * y_1
+    // z_0 = x_0 * y_0
+    // z_1 = (x_1 + x_0) * (y_1 + y_0) - z_2 - z_0
+    // prod = (z_2 * 10.pow(2m)) + (z_1 * 10.pow(m)) + z_0
+
+    let exponent_split = 1;
+    
+    let x_1 = x / 10_u64.pow(exponent_split);
+    let x_0 = x % 10_u64.pow(exponent_split);
+    
+    let y_1 = y / 10_u64.pow(exponent_split);
+    let y_0 = y % 10_u64.pow(exponent_split);
+
+    let z_2 = x_1 * y_1;
+    let z_0 = x_0 * y_0;
+    let z_1 = ((x_1 + x_0) * (y_1 + y_0)) - z_2 - z_0;
+
+    (z_2 * 10_u64.pow(2 * exponent_split)) + (z_1 * 10_u64.pow(exponent_split)) + z_0
+}
+
+#[allow(dead_code)]
 fn remove_zero_trail(mut result: u64) -> (u8,u64) {
     dbg!(result);
     let mut n_zero: u8 = 0;
