@@ -38,7 +38,6 @@ fn multiply_karatsuba(x: u64, y: u64) -> u64 {
 
 #[allow(dead_code)]
 fn remove_zero_trail(mut result: u64) -> (u8,u64) {
-    dbg!(result);
     let mut n_zero: u8 = 0;
     loop {
         if result % 10 != 0 {
@@ -50,9 +49,8 @@ fn remove_zero_trail(mut result: u64) -> (u8,u64) {
 }
 
 fn binomial_coefficient(n: u8, r: u8) -> u64 {
-    // TODO:
-    // We are still experiencing multiplication overflows
-    // Shift to Karatsuba algorithm, (possibly ditch the trailing zeros method)
+    println!("n: {}, r: {}", n, r);
+
     let mut binomial_coeff_result: u64 = 1;
     let max_denominator = std::cmp::max(r, n-r);
     let min_denominator = std::cmp::min(r, n-r);
