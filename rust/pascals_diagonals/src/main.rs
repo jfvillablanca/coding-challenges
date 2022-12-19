@@ -48,6 +48,30 @@ fn remove_zero_trail(mut result: u64) -> (u8,u64) {
     }
 }
 
+fn divide_long (long_dividend: &String, divisor: u64) -> u64 {
+    let mut current_div = String::new();
+    let mut quotient = String::new();
+    let mut digit_place = 0;
+    
+    loop {
+        if digit_place == long_dividend.len() {
+            return quotient.parse::<u64>().unwrap();
+        }
+        current_div.push(long_dividend.as_bytes()[digit_place] as char);
+        let current_div_int = current_div.parse::<u64>().unwrap();
+        let quotient_digit_int = current_div_int / divisor;
+
+        let current_div_int = current_div_int - (quotient_digit_int * divisor);
+
+        let quotient_digit = std::char::from_digit(quotient_digit_int as u32, 10).unwrap(); 
+        quotient.push(quotient_digit);
+
+        current_div = current_div_int.to_string();
+        digit_place += 1;
+    }
+}
+
+#[allow(dead_code)]
 fn binomial_coefficient(n: u8, r: u8) -> u64 {
     println!("n: {}, r: {}", n, r);
 
