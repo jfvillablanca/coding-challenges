@@ -75,44 +75,40 @@ fn divide_long (long_dividend: &String, divisor: u64) -> u64 {
 fn binomial_coefficient(n: u8, r: u8) -> u64 {
     println!("n: {}, r: {}", n, r);
 
-    let mut binomial_coeff_result: u64 = 1;
     let max_denominator = std::cmp::max(r, n-r);
     let min_denominator = std::cmp::min(r, n-r);
 
     let mut max_denominator_factor = n;
     let mut min_denominator_factor = min_denominator;
 
-    let mut result_string = binomial_coeff_result.to_string();
+    let mut bin_coeff_result = "1".to_string();
     loop {
-        dbg!(result_string.clone());
         if max_denominator_factor <= max_denominator {
             break;
         }
 
-        let half_len = result_string.len() / 2;
-        let top_half = if half_len == 0 { "0" } else { &result_string[..half_len] };
-        let bottom_half = &result_string[half_len..].to_string();
+        let half_len = bin_coeff_result.len() / 2;
+        let top_half = if half_len == 0 { "0".to_string() } else { bin_coeff_result[..half_len].to_string() };
+        let bottom_half = &bin_coeff_result[half_len..].to_string();
 
-        // binomial_coeff_result *= max_denominator_factor as u64;
         let top_half = &(top_half.parse::<u64>().unwrap() * max_denominator_factor as u64).to_string();
         let bottom_half = &(bottom_half.parse::<u64>().unwrap() * max_denominator_factor as u64).to_string();
 
-        dbg!(top_half, bottom_half, max_denominator);
-        println!("---");
-
-        result_string = "".to_string();
-        result_string.push_str(top_half);
-        result_string.push_str(bottom_half);
+        bin_coeff_result = "".to_string();
+        bin_coeff_result.push_str(top_half);
+        bin_coeff_result.push_str(bottom_half);
         max_denominator_factor -= 1;
     };
-    println!("bin_coeff_string {:?}", result_string);
+    println!("bin_coeff_string {:?}", bin_coeff_result);
 
-    // For the remaining factors unreduced in the previous loop
+    // TODO: 
+    // Implement long division algorithm here lol
     loop {
         if min_denominator_factor <= 1 {
-            return binomial_coeff_result;
+            return bin_coeff_result.parse::<u64>().unwrap();
         }
-        binomial_coeff_result /= min_denominator_factor as u64;
+        bin_coeff_result = divide_long(&bin_coeff_result, min_denominator_factor as u64);
+        dbg!(&bin_coeff_result);
         min_denominator_factor -= 1;
     };
 }
