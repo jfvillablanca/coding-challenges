@@ -1,5 +1,7 @@
 function snail(array) {
-  return array;
+  if (array.length === 0) return [];
+
+  return flat;
 }
 
 module.exports = snail;
