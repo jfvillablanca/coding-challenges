@@ -7,17 +7,14 @@ function snail(array) {
 
   const numSteps = Math.pow(array.length, 2);
 
-  let state = 0;
   let turns = 0;
   let stepSize = array.length - 1;
 
   for (step = 1; step <= numSteps; step++) {
     // console.log(`x: ${x} y: ${y} val: ${array[y][x]}`);
     // flat.push(array[y][x]);
-    console.log(
-      `${step} state: ${state}, turns: ${turns}, stepsize: ${stepSize}`
-    );
-    switch (state) {
+    console.log(`${step} turns: ${turns}, stepsize: ${stepSize}`);
+    switch (turns % 4) {
       case 0:
         x += 1;
         break;
@@ -32,7 +29,6 @@ function snail(array) {
         break;
     }
     if (step % stepSize === 0) {
-      state = (state + 1) % 4;
       turns++;
       if (turns % array.length === 0) {
         stepSize--;
