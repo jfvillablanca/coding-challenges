@@ -1,5 +1,5 @@
 function snail(array) {
-  if (array.length === 0) return [];
+  if (array.flat().length === 0) return [];
 
   return flat;
 }
