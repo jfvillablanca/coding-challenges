@@ -8,6 +8,8 @@ function snail(array) {
   const numSteps = Math.pow(array.length, 2);
 
   let turns = 0;
+  let counter = 0;
+  let flag = false;
   let stepSize = array.length - 1;
 
   for (step = 1; step <= numSteps; step++) {
@@ -28,12 +30,22 @@ function snail(array) {
         y -= 1;
         break;
     }
-    if (step % stepSize === 0) {
-      turns++;
-      if (turns % array.length === 0) {
-        stepSize--;
-      }
+
+    if (step % stepSize !== 0) {
+      continue;
     }
+    turns++;
+    counter++;
+    if (counter % 2 === 0 && flag) {
+      stepSize--;
+      counter = 0;
+    }
+    if (counter % 3 === 0 && !flag) {
+      stepSize--;
+      flag = true;
+      counter = 0;
+    }
+    console.log(`${step + 1} turns: ${turns}, stepsize: ${stepSize}`);
   }
   return flat;
 }
